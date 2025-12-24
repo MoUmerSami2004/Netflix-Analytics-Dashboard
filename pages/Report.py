@@ -5,8 +5,6 @@ Project report and documentation display.
 """
 
 import streamlit as st
-import base64
-from pathlib import Path
 
 # Page configuration
 st.set_page_config(
@@ -95,37 +93,34 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Check for local PDF file
-report_path = Path("DataVizProject.pdf")
+# Google Drive PDF file ID
+GOOGLE_DRIVE_FILE_ID = "1I9p2PKRVf0f5oFyjKqBPFBstrisH1eLX"
+GOOGLE_DRIVE_PREVIEW_URL = f"https://drive.google.com/file/d/{GOOGLE_DRIVE_FILE_ID}/preview"
+GOOGLE_DRIVE_DOWNLOAD_URL = f"https://drive.google.com/uc?export=download&id={GOOGLE_DRIVE_FILE_ID}"
 
-# Display report
-if report_path.exists():
-    # Read local PDF file
-    with open(report_path, "rb") as f:
-        pdf_bytes = f.read()
-        base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
-    
-    # Download button
-    st.download_button(
-        label="📥 Download Report",
-        data=pdf_bytes,
-        file_name="DataVizProject.pdf",
-        mime="application/pdf"
-    )
-    
-    # Display PDF
-    pdf_display = f"""
-    <iframe 
-        src="data:application/pdf;base64,{base64_pdf}" 
-        width="100%" 
-        height="900px" 
-        style="border: none; border-radius: 8px; background: #000; margin-top: 1rem;">
-    </iframe>
-    """
-    st.markdown(pdf_display, unsafe_allow_html=True)
-else:
-    st.error("❌ Report file 'DataVizProject.pdf' not found in the project directory.")
-    st.info("Please ensure 'DataVizProject.pdf' is placed in the project root directory.")
+# Download button linking to Google Drive
+st.markdown(f"""
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <a href="{GOOGLE_DRIVE_DOWNLOAD_URL}" target="_blank" 
+           style="display: inline-block; padding: 0.75rem 2rem; background: #E50914; 
+                  color: #ffffff; text-decoration: none; border-radius: 6px; 
+                  font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);">
+            📥 Download Report
+        </a>
+    </div>
+""", unsafe_allow_html=True)
+
+# Display PDF from Google Drive
+pdf_display = f"""
+<iframe 
+    src="{GOOGLE_DRIVE_PREVIEW_URL}" 
+    width="100%" 
+    height="900px" 
+    style="border: none; border-radius: 8px; background: #000; margin-top: 1rem;">
+</iframe>
+"""
+st.markdown(pdf_display, unsafe_allow_html=True)
 
 # Footer
 st.markdown("""

@@ -5,8 +5,6 @@ Project presentation slides display.
 """
 
 import streamlit as st
-import base64
-from pathlib import Path
 
 # Page configuration
 st.set_page_config(
@@ -92,132 +90,37 @@ st.markdown("""
 st.markdown("""
     <div style="text-align: center; margin-bottom: 3rem;">
         <h1>📊 PRESENTATION</h1>
-        <p style="color: #b3b3b3; font-size: 1.1rem; margin-top: 1rem;">
-            Project presentation slides and overview
-        </p>
     </div>
 """, unsafe_allow_html=True)
 
-# Instructions
-with st.expander("📋 How to Add Your Presentation", expanded=False):
-    st.markdown("""
-    **To display your presentation:**
-    
-    1. **Option 1 - Upload PDF directly:**
-       - Convert your ODF presentation to PDF (if needed)
-       - Use the file uploader below to upload your PDF
-       - The presentation will display automatically
-    
-    2. **Option 2 - Place file in project folder:**
-       - Save your PDF presentation as `presentation.pdf` in the project root
-       - The presentation will load automatically
-    
-    3. **Option 3 - Google Drive link:**
-       - Upload your PDF to Google Drive
-       - Get the shareable link (set to "Anyone with the link can view")
-       - Paste the link below
-    
-    **Note:** For ODF files, please convert to PDF first for best compatibility.
-    """)
+# Google Drive PDF file ID
+GOOGLE_DRIVE_FILE_ID = "1pU6A03ar5s2j_6lEwUEzEfAzdwTmm09U"
+GOOGLE_DRIVE_PREVIEW_URL = f"https://drive.google.com/file/d/{GOOGLE_DRIVE_FILE_ID}/preview"
+GOOGLE_DRIVE_DOWNLOAD_URL = f"https://drive.google.com/uc?export=download&id={GOOGLE_DRIVE_FILE_ID}"
 
-# Presentation Section
-st.markdown("""
-    <div class="presentation-container">
-        <h2 style="color: #E50914; margin-bottom: 1.5rem; text-align: center;">
-            Project Presentation
-        </h2>
+# Download button linking to Google Drive
+st.markdown(f"""
+    <div style="text-align: center; margin-bottom: 1rem;">
+        <a href="{GOOGLE_DRIVE_DOWNLOAD_URL}" target="_blank" 
+           style="display: inline-block; padding: 0.75rem 2rem; background: #E50914; 
+                  color: #ffffff; text-decoration: none; border-radius: 6px; 
+                  font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+                  box-shadow: 0 2px 8px rgba(229, 9, 20, 0.3);">
+            📥 Download Presentation
+        </a>
     </div>
 """, unsafe_allow_html=True)
 
-# File uploader
-uploaded_file = st.file_uploader(
-    "Upload Presentation (PDF)",
-    type=['pdf'],
-    help="Upload your presentation PDF file here"
-)
-
-# Check for local file
-presentation_path = Path("presentation.pdf")
-
-# Google Drive link option
-st.markdown("---")
-google_drive_link = st.text_input(
-    "Or enter Google Drive PDF link",
-    value="",
-    help="Paste your Google Drive PDF link here (make sure it's set to 'Anyone with the link can view')",
-    placeholder="https://drive.google.com/file/d/..."
-)
-
-# Display presentation
-if uploaded_file is not None:
-    # Read PDF file
-    pdf_bytes = uploaded_file.read()
-    base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
-    
-    # Display PDF
-    pdf_display = f"""
-    <iframe 
-        src="data:application/pdf;base64,{base64_pdf}" 
-        width="100%" 
-        height="800px" 
-        style="border: none; border-radius: 8px; background: #000;">
-    </iframe>
-    """
-    st.markdown(pdf_display, unsafe_allow_html=True)
-    st.success("✅ Presentation loaded successfully!")
-    
-elif presentation_path.exists():
-    # Read local PDF file
-    with open(presentation_path, "rb") as f:
-        pdf_bytes = f.read()
-        base64_pdf = base64.b64encode(pdf_bytes).decode('utf-8')
-    
-    pdf_display = f"""
-    <iframe 
-        src="data:application/pdf;base64,{base64_pdf}" 
-        width="100%" 
-        height="800px" 
-        style="border: none; border-radius: 8px; background: #000;">
-    </iframe>
-    """
-    st.markdown(pdf_display, unsafe_allow_html=True)
-    st.success("✅ Presentation loaded from local file!")
-
-elif google_drive_link:
-    # Extract file ID from Google Drive link
-    try:
-        if "/d/" in google_drive_link:
-            file_id = google_drive_link.split("/d/")[1].split("/")[0]
-            embed_url = f"https://drive.google.com/file/d/{file_id}/preview"
-            
-            st.markdown(f"""
-            <div style="position: relative; padding-bottom: 75%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 8px; margin: 2rem 0;">
-                <iframe 
-                    src="{embed_url}" 
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                    allow="autoplay; encrypted-media" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-            """, unsafe_allow_html=True)
-            st.success("✅ Presentation loaded from Google Drive!")
-        else:
-            st.error("❌ Invalid Google Drive link format. Please use a shareable link.")
-    except Exception as e:
-        st.error(f"❌ Error loading presentation: {str(e)}")
-
-else:
-    st.info("👆 Please upload your presentation PDF or provide a Google Drive link above.")
-    st.markdown("""
-    <div style="background: #1f1f1f; padding: 3rem; border-radius: 12px; text-align: center; border: 2px dashed #404040; margin: 2rem 0;">
-        <p style="color: #b3b3b3; font-size: 1.1rem; margin-bottom: 1rem;">
-            Presentation will appear here once you upload your PDF or provide a link
-        </p>
-        <p style="color: #808080; font-size: 0.9rem;">
-            Use the file uploader above or place 'presentation.pdf' in the project folder
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+# Display PDF from Google Drive
+pdf_display = f"""
+<iframe 
+    src="{GOOGLE_DRIVE_PREVIEW_URL}" 
+    width="100%" 
+    height="900px" 
+    style="border: none; border-radius: 8px; background: #000; margin-top: 1rem;">
+</iframe>
+"""
+st.markdown(pdf_display, unsafe_allow_html=True)
 
 # Footer
 st.markdown("""
