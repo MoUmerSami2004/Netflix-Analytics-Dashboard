@@ -11,11 +11,15 @@
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #ffffff;
+            background: #141414;
             min-height: 100vh;
         }
         
@@ -23,62 +27,124 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            background: white;
+            background: #1f1f1f;
             margin-top: 20px;
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 50px 20px;
             background: linear-gradient(135deg, #E50914 0%, #B20710 100%);
             color: white;
-            border-radius: 10px 10px 0 0;
+            border-radius: 4px 4px 0 0;
             margin: -20px -20px 30px -20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            pointer-events: none;
         }
         
         h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-shadow: 0 0 10px rgba(229, 9, 20, 0.7), 
+                         0 0 20px rgba(229, 9, 20, 0.5), 
+                         0 0 30px rgba(229, 9, 20, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(229, 9, 20, 0.7),
+                            0 0 20px rgba(229, 9, 20, 0.5), 
+                            0 0 30px rgba(229, 9, 20, 0.3);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(229, 9, 20, 0.9), 
+                            0 0 30px rgba(229, 9, 20, 0.7), 
+                            0 0 40px rgba(229, 9, 20, 0.5);
+            }
         }
         
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
+            color: #b3b3b3;
+            position: relative;
+            z-index: 1;
         }
         
         h2 {
             color: #E50914;
-            margin-top: 30px;
-            margin-bottom: 15px;
-            font-size: 1.8rem;
-            border-bottom: 3px solid #E50914;
-            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #E50914;
+            padding-bottom: 12px;
+            text-transform: uppercase;
         }
         
         h3 {
-            color: #564d4d;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            color: #E50914;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        
+        p {
+            color: #b3b3b3;
+        }
+        
+        strong {
+            color: #ffffff;
         }
         
         .team-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
+            background: #2a2a2a;
+            padding: 24px;
+            border-radius: 4px;
             margin: 20px 0;
+            border: 1px solid #404040;
+        }
+        
+        .team-section p {
+            color: #b3b3b3;
+            margin: 8px 0;
         }
         
         .section {
             margin: 30px 0;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            padding: 24px;
+            background: #1f1f1f;
+            border-radius: 4px;
             border-left: 4px solid #E50914;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .section:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 8px rgba(229, 9, 20, 0.3);
         }
         
         .metrics {
@@ -89,27 +155,33 @@
         }
         
         .metric-card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+            background: #2a2a2a;
+            padding: 24px;
+            border-radius: 4px;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #404040;
         }
         
         .metric-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.02);
+            background: #2f2f2f;
+            box-shadow: 0 6px 20px rgba(229, 9, 20, 0.4);
         }
         
         .metric-value {
             font-size: 2rem;
-            font-weight: bold;
+            font-weight: 700;
             color: #E50914;
         }
         
         .metric-label {
-            color: #666;
+            color: #b3b3b3;
             margin-top: 10px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         ul, ol {
@@ -119,6 +191,17 @@
         
         li {
             margin: 8px 0;
+            color: #b3b3b3;
+        }
+        
+        a {
+            color: #E50914;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        a:hover {
+            color: #ff1a1a;
         }
         
         .tech-stack {
@@ -134,6 +217,12 @@
             padding: 8px 15px;
             border-radius: 20px;
             font-size: 0.9rem;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+        
+        .tech-badge:hover {
+            background: #ff1a1a;
+            transform: scale(1.05);
         }
         
         .dashboard-link {
@@ -142,43 +231,73 @@
             color: white;
             padding: 15px 30px;
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
+            border-radius: 4px;
+            font-weight: 700;
             margin: 20px 0;
-            transition: background 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(229, 9, 20, 0.4);
         }
         
         .dashboard-link:hover {
-            background: #B20710;
+            background: #ff1a1a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.6);
         }
         
         .insights-list {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
+            background: #2a2a2a;
+            padding: 24px;
+            border-radius: 4px;
             margin: 15px 0;
+            border: 1px solid #404040;
         }
         
         .insight-item {
-            padding: 10px;
-            margin: 10px 0;
+            padding: 16px;
+            margin: 12px 0;
             border-left: 3px solid #E50914;
-            background: #f8f9fa;
+            background: #1f1f1f;
+            border-radius: 4px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .insight-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 4px 8px rgba(229, 9, 20, 0.2);
+        }
+        
+        .insight-item h3 {
+            color: #E50914;
+            margin-bottom: 8px;
+        }
+        
+        .insight-item p {
+            color: #b3b3b3;
         }
         
         .video-section {
             text-align: center;
             padding: 40px;
-            background: #f8f9fa;
-            border-radius: 8px;
+            background: #2a2a2a;
+            border-radius: 4px;
             margin: 30px 0;
+            border: 1px solid #404040;
+        }
+        
+        .video-section h3 {
+            color: #E50914;
+            margin-bottom: 20px;
+        }
+        
+        .video-section p {
+            color: #b3b3b3;
         }
         
         .video-placeholder {
-            background: #ddd;
+            background: #1f1f1f;
             padding: 60px;
-            border-radius: 8px;
-            color: #666;
+            border-radius: 4px;
+            color: #b3b3b3;
             font-size: 1.1rem;
         }
         
@@ -189,8 +308,9 @@
             overflow: hidden;
             max-width: 100%;
             background: #000;
-            border-radius: 8px;
+            border-radius: 4px;
             margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.8);
         }
         
         .video-container-responsive iframe {
@@ -207,49 +327,95 @@
             padding: 30px;
             margin-top: 40px;
             border-top: 2px solid #E50914;
-            color: #666;
+            color: #b3b3b3;
+        }
+        
+        footer p {
+            color: #b3b3b3;
+        }
+        
+        footer strong {
+            color: #E50914;
         }
         
         .github-link {
             display: inline-block;
             margin: 10px;
             padding: 10px 20px;
-            background: #333;
-            color: white;
+            background: #2a2a2a;
+            color: #E50914;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 1px solid #404040;
         }
         
         .github-link:hover {
-            background: #555;
+            background: #E50914;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(229, 9, 20, 0.4);
         }
         
         code {
-            background: #f4f4f4;
+            background: #2a2a2a;
+            color: #E50914;
             padding: 2px 6px;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
+            border: 1px solid #404040;
         }
         
         .highlight {
-            background: #fff3cd;
-            padding: 15px;
-            border-left: 4px solid #ffc107;
+            background: #2a2a2a;
+            padding: 20px;
+            border-left: 4px solid #E50914;
             margin: 15px 0;
             border-radius: 4px;
+            border: 1px solid #404040;
+        }
+        
+        .highlight p {
+            color: #b3b3b3;
+        }
+        
+        .highlight strong {
+            color: #E50914;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #1f1f1f;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #404040;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #E50914;
+        }
+        
+        /* Smooth transitions */
+        * {
+            transition: color 0.2s ease, background-color 0.2s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📊 Netflix Content Analytics Dashboard</h1>
+            <h1>NETFLIX CONTENT ANALYTICS</h1>
             <p class="subtitle">Descriptive Analytics: Trends, Patterns, and Insights</p>
         </header>
         
         <div class="team-section">
-            <h2>👥 Team Members</h2>
+            <h2>Team Members</h2>
             <p><strong>Team Member 1:</strong> Muhammad Umer Sami</p>
             <p><strong>Registration Number:</strong> 2022684</p>
             <p><strong>Team Member 2:</strong> Hamza Motiwala</p>
@@ -259,7 +425,7 @@
         </div>
         
         <section class="section">
-            <h2>📋 Project Description</h2>
+            <h2>Project Description</h2>
             <p>
                 This project presents a comprehensive <strong>descriptive analytics dashboard</strong> for analyzing 
                 Netflix content trends, patterns, and insights. The dashboard focuses on historical data analysis, 
@@ -305,7 +471,7 @@
         </section>
         
         <section class="section">
-            <h2>📊 Dataset Description</h2>
+            <h2>Dataset Description</h2>
             
             <h3>Source</h3>
             <p>
@@ -348,7 +514,7 @@
         </section>
         
         <section class="section">
-            <h2>🛠️ Tools & Technologies Used</h2>
+            <h2>Tools & Technologies</h2>
             
             <div class="tech-stack">
                 <span class="tech-badge">Python 3.8+</span>
@@ -370,7 +536,7 @@
         </section>
         
         <section class="section">
-            <h2>📈 Dashboard Section</h2>
+            <h2>Interactive Dashboard</h2>
             
             <p>
                 The interactive dashboard provides comprehensive analytics with multiple visualizations, 
@@ -390,61 +556,61 @@
                 See the README.md for detailed deployment instructions.
             </p>
             
-            <a href="https://netflix-content-analytics-dashboard.streamlit.app/" class="dashboard-link" target="_blank">🚀 Launch Interactive Dashboard</a>
+            <a href="https://netflix-content-analytics-dashboard.streamlit.app/" class="dashboard-link" target="_blank">Launch Interactive Dashboard</a>
             
             <h3>Dashboard Features</h3>
             <ul>
-                <li>✅ <strong>Interactive Filters:</strong> Year range, content type, country, genre, rating</li>
-                <li>✅ <strong>Temporal Visualizations:</strong> Yearly trends, monthly patterns, release year analysis</li>
-                <li>✅ <strong>Comparative Charts:</strong> Type distribution, top countries, genre popularity</li>
-                <li>✅ <strong>Pattern Analysis:</strong> Genre evolution, country-type relationships, duration distributions</li>
-                <li>✅ <strong>Hover Tooltips:</strong> Detailed information on hover</li>
-                <li>✅ <strong>Dynamic Updates:</strong> All charts update based on filter selections</li>
-                <li>✅ <strong>Data Table:</strong> Detailed view of filtered data</li>
+                <li><strong>Interactive Filters:</strong> Year range, content type, country, genre, rating</li>
+                <li><strong>Temporal Visualizations:</strong> Yearly trends, monthly patterns, release year analysis</li>
+                <li><strong>Comparative Charts:</strong> Type distribution, top countries, genre popularity</li>
+                <li><strong>Pattern Analysis:</strong> Genre evolution, country-type relationships, duration distributions</li>
+                <li><strong>Hover Tooltips:</strong> Detailed information on hover</li>
+                <li><strong>Dynamic Updates:</strong> All charts update based on filter selections</li>
+                <li><strong>Data Table:</strong> Detailed view of filtered data</li>
             </ul>
         </section>
         
         <section class="section">
-            <h2>💡 Key Insights Section</h2>
+            <h2>Key Insights</h2>
             
             <div class="insights-list">
                 <div class="insight-item">
-                    <h3>📈 Content Growth Pattern</h3>
+                    <h3>Content Growth Pattern</h3>
                     <p>Netflix experienced exponential growth in content additions from 2008 to 2021, with peak addition years around 2019-2020. This reflects aggressive global expansion and investment in original content production.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>🌍 Geographic Distribution</h3>
+                    <h3>Geographic Distribution</h3>
                     <p>United States leads content production, but international content from India, UK, Japan, and South Korea shows strong growth. This indicates successful global expansion strategy.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>🎬 Content Type Balance</h3>
+                    <h3>Content Type Balance</h3>
                     <p>Movies slightly outnumber TV Shows (55-60% vs 40-45%), but TV Shows are growing faster in recent years, reflecting the binge-watching culture and original series investment.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>🎭 Genre Dominance</h3>
+                    <h3>Genre Dominance</h3>
                     <p>Dramas, International content, and Comedies lead the genre distribution. The platform maintains a diverse genre portfolio to appeal to broad demographics.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>📅 Temporal Patterns</h3>
+                    <h3>Temporal Patterns</h3>
                     <p>Content additions show seasonal variations with Q4 (October-December) typically having higher activity. Monthly additions remain relatively consistent year-round.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>🎯 Rating Distribution</h3>
+                    <h3>Rating Distribution</h3>
                     <p>TV-MA (Mature) content dominates, but family-friendly content (PG, TV-Y) provides important balance for household subscriptions.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>🔄 Genre Evolution</h3>
+                    <h3>Genre Evolution</h3>
                     <p>Different genres show varying growth patterns over time. Dramas and International content maintain strong presence, while some genres show rapid growth in recent years.</p>
                 </div>
                 
                 <div class="insight-item">
-                    <h3>⏱️ Duration Patterns</h3>
+                    <h3>Duration Patterns</h3>
                     <p>Movie durations cluster around 90-120 minutes (average ~100 minutes), aligning with viewer expectations and viewing session planning.</p>
                 </div>
             </div>
@@ -453,7 +619,7 @@
         </section>
         
         <section class="section">
-            <h2>🎥 Video Walkthrough Section</h2>
+            <h2>Video Walkthrough</h2>
             
             <div class="video-section">
                 <h3>Dashboard Walkthrough Video</h3>
@@ -472,7 +638,7 @@
         </section>
         
         <section class="section">
-            <h2>🔗 GitHub Repository</h2>
+            <h2>GitHub Repository</h2>
             <p>
                 <strong>Repository:</strong> 
                 <a href="https://github.com/MoUmerSami2004/Netflix-Analytics-Dashboard" class="github-link" target="_blank">View on GitHub</a>
@@ -493,7 +659,7 @@
         </section>
         
         <section class="section">
-            <h2>📚 Additional Resources</h2>
+            <h2>Additional Resources</h2>
             <ul>
                 <li><a href="README.md">README.md</a> - Complete project documentation and setup instructions</li>
                 <li><a href="INSIGHTS.md">INSIGHTS.md</a> - Detailed insights and business implications</li>
@@ -504,8 +670,7 @@
         <footer>
             <p><strong>Netflix Content Analytics Dashboard</strong></p>
             <p>Descriptive Analytics | Trends | Patterns | Insights</p>
-            <p>Built with ❤️ for Data Science</p>
-            <p style="margin-top: 20px; font-size: 0.9rem; color: #999;">
+            <p style="margin-top: 20px; font-size: 0.9rem; color: #808080;">
                 © 2024 | DS451 Project | Academic Use Only
             </p>
         </footer>
